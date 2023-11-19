@@ -1,3 +1,49 @@
+a {
+	text-decoration: none;
+}
+
 body {
-    background: forestgreen;
+    background: #2c2c2c;
+}
+
+aside {
+    float: left;
+    background: #181818;
+    width: 20%;
+    padding: 2.5%;
+    height: 100vh;
+    color: #fff;
+    border-right: 5px solid #4d4d4d;
+}
+
+aside img {
+    width: 80px;
+}
+
+aside .logo {
+    font-size: 15px;
+    margin-left: 10px;
+    font-weight: bold;
+    position: relative;
+}
+
+aside ul {list-style: none}
+aside ul li {
+    color: #fff;
+    display: block;
+    margin-top: 5px;
+    transition: transform .6s;
+}
+
+aside ul li:hover {
+    color: #eb5959;
+    transform: scale(1.05);
+}
+
+main .features {
+    float: left;
+    color: #fff;
+    margin-top: 100px;
+    text-align: center;
+    width: 75%;
 }
