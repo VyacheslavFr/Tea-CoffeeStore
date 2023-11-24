@@ -5,6 +5,15 @@
 {% block content %}
     <div class="features">
         <h1>Профиль</h1>
-        <p>текст</p>
+        <p>Имя пользователя: {{ user.username }}</p>
+        <p>Имя: {{ user.first_name }}</p>
+        <p>Фамилия: {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+
+        <p>
+{#            <button onclick="location.href='{% url 'logout' %}?next=/profile'">Logout</button>#}
+{#            <button onclick="location.href='{% url 'password_change' %}'">Change Password</button>#}
+            <button onclick="location.href='{% url 'user_edit_profile' %}'">Редактировать профиль</button>
+        </p>
     </div>
 {% endblock %}
