@@ -11,7 +11,7 @@
         <p>Email: {{ user.email }}</p>
 
         <p>
-{#            <button onclick="location.href='{% url 'logout' %}?next=/profile'">Logout</button>#}
+            <button onclick="location.href='{% url 'user_logout' %}'">Выход</button>
 {#            <button onclick="location.href='{% url 'password_change' %}'">Change Password</button>#}
             <button onclick="location.href='{% url 'user_edit_profile' %}'">Редактировать профиль</button>
         </p>
