@@ -64,14 +64,14 @@ def user_logout_view(request):
     return redirect('home')
 
 
-@login_required
-def user_change_password(request):
-    if request.method == 'POST':
-        form = ChangePasswordForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            return redirect('home')
-    else:
-        form = ChangePasswordForm(request.user)
-    return render(request, 'user/user_password_change', {'form': form})
+# @login_required
+# def user_change_password(request):
+#     if request.method == 'POST':
+#         form = ChangePasswordForm(request.user, request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             update_session_auth_hash(request, user)
+#             return redirect('home')
+#     else:
+#         form = ChangePasswordForm(request.user)
+#     return render(request, 'user/user_password_change', {'form': form})

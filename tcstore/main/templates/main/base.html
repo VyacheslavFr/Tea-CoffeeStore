@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
 
 </head>
+
+{% if user.is_authenticated %}
+    <button onclick="location.href='{% url 'user_logout' %}?next=/profile'">Выйти</button>
+    <a href={% url 'user_profile' %}>{{ user.username }}</a>
+{% else %}
+    <a href={% url 'user_registration' %}>Регистрация на сайте</a>
+    <a href={% url 'user_login' %}>Авторизация</a>
+{% endif %}
+
 <body>
     <aside>
         <img src="{% static 'main/img/TCS_Logo.jpg' %}" alt="Лого">
