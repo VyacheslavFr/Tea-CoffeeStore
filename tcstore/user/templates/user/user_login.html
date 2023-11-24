@@ -5,6 +5,12 @@
 {% block content %}
     <div class="features">
         <h1>Авторизация</h1>
-        <p>текст</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ form.errors }}
+            <button>Войти</button>
+        </form>
+            <a href="{% url 'user_registration' %}">Зарегистрироваться</a>
     </div>
 {% endblock %}

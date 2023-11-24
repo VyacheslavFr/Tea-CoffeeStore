@@ -1,10 +1,11 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import EditProfileForm
+from .forms import EditProfileForm, LoginForm
 
 
 def user_registration_view(request):
@@ -13,10 +14,29 @@ def user_registration_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('main/main.html')
+            return redirect('home')
     else:
         form = UserCreationForm()
     return render(request, 'user/user_registration.html', {'form': form})
+
+
+def user_login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(username=cd['username'], password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('home')
+                else:
+                    return HttpResponse('Disabled account')
+            else:
+                return HttpResponse('Invalid login')
+    else:
+        form = LoginForm()
+    return render(request, 'user/user_login.html', {'form': form})
 
 
 @login_required
@@ -41,7 +61,7 @@ def user_edit_profile_view(request):
 def user_logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-    return redirect('user_profile.')
+    return redirect('home')
 
 
 @login_required
