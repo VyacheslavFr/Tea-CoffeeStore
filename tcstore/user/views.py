@@ -1,11 +1,11 @@
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import EditProfileForm, LoginForm
+from .forms import EditProfileForm, LoginForm, ChangePasswordForm
 
 
 def user_registration_view(request):
@@ -66,4 +66,12 @@ def user_logout_view(request):
 
 @login_required
 def user_change_password(request):
-    pass
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('home')
+    else:
+        form = ChangePasswordForm(request.user)
+    return render(request, 'user/user_password_change', {'form': form})
