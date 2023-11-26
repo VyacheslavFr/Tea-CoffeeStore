@@ -5,6 +5,15 @@
 {% block content %}
     <div class="features">
         <h1>Регистрация</h1>
-        <p>текст</p>
+            <form method="post">
+                {% csrf_token %}
+                <p><input class="text" type="text" name="username" placeholder="Логин" required=""></p>
+                <p><input class="text email" type="email" name="email" placeholder="Email" required=""></p>
+                <p><input class="text" type="password" name="password1" placeholder="Пароль" required=""></p>
+                <p><input class="text w3lpass" type="password" name="password2" placeholder="Подтверждение пароля" required=""></p>
+                {{ form.errors }}
+                <input type="submit" value="Зарегистрироваться">
+            </form>
+				<p>Есть аккаунт? <a href="{% url 'user_login' %}"> Войти</a></p>
     </div>
 {% endblock %}
