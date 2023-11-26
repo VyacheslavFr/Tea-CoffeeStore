@@ -18,3 +18,27 @@
     width: 80%;
     z-index: 9999;
 }
+
+.user_edit_profile .user_edit_profile_content .close_user_edit_profile_window {
+    color: #aaa;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user_edit_profile_inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+
+.user_edit_profile_title {
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+
+.user_edit_profile_form {
+    color: black;
+}
