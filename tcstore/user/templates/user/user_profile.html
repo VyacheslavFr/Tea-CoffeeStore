@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block title %}Профиль{% endblock %}
+<link rel="stylesheet" href="user.css">
 
 {% block content %}
     <div class="features">
@@ -10,10 +11,29 @@
         <p>Фамилия: {{ user.last_name }}</p>
         <p>Email: {{ user.email }}</p>
 
-        <p>
-            <button onclick="location.href='{% url 'user_logout' %}'">Выход</button>
+        <p><button onclick="location.href='{% url 'user_logout' %}'">Выход</button></p>
 {#            <button onclick="location.href='{% url 'password_change' %}'">Change Password</button>#}
-            <button onclick="location.href='{% url 'user_edit_profile' %}'">Редактировать профиль</button>
-        </p>
+        <button onclick="location.href='{% url 'user_edit_profile' %}'">Редактировать профиль</button>
+
+        <button data-user-edit-profile-btn="user_edit_profile">Редактировать профиль</button>
+
+        <div data-user-edit-profile-window="user_edit_profile" class="user_edit_profile">
+            <div class="user_edit_profile_content">
+                <div class="user_edit_profile_inner">
+                    <div class="user_edit_profile_title">Редактирование профиля</div>
+                    <div class="close_user_edit_profile_window">&times;</div>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Имя пользователя: {{ form.username }}</p>
+                    <p>Имя: {{ form.first_name }}</p>
+                    <p>Фамилия: {{ form.last_name }}</p>
+                    <p>Email: {{ form.email }}</p>
+                    <p><button type="submit">Сохранить изменения</button></p>
+                </form>
+            </div>
+        </div>
+
     </div>
+    <script src="user.js"></script>
 {% endblock %}
