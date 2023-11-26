@@ -54,7 +54,7 @@ def user_edit_profile_view(request):
             return redirect('user_profile')
     else:
         form = EditProfileForm(instance=user)
-    return render(request, 'user/user_edit_profile.html', {'form': form})
+    return render(request, 'user/user_profile.html', {'form': form})
 
 
 @login_required
