@@ -54,11 +54,11 @@ def user_edit_profile_view(request):
             if cleaned_data['username']:
                 user.username = cleaned_data['username']
             if cleaned_data['first_name']:
-                user.username = cleaned_data['first_name']
+                user.first_name = cleaned_data['first_name']
             if cleaned_data['last_name']:
-                user.username = cleaned_data['last_name']
+                user.last_name = cleaned_data['last_name']
             if cleaned_data['old_password']:
-                user.username = cleaned_data['old_password']
+                user.old_password = cleaned_data['old_password']
             user.save()
             return redirect('user_profile')
     else:
