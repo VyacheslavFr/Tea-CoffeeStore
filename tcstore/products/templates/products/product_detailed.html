@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Товар{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="features">
+        <div class="products_container">
+            <h3>{{ product.product_name }}</h3>
+            <p>{{ product.product_vendor_code }}</p>
+            <p>{{ product.product_category }}</p>
+            <p>{{ product.product_sub_category }}</p>
+            <p>{{ product.product_package }}</p>
+            <p>{{ product.product_net_weight }}</p>
+            <p>{{ product.product_full_category }}</p>
+            <p>{{ product.product_description }}</p>
+        </div>
+    </div>
+{% endblock content %}

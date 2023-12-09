@@ -3,15 +3,18 @@
 
 {% block title %}Товары{% endblock %}
 
-{% block content %}
+{% block head %}
     <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
 
     <div class="features">
         <h1>Товары</h1>
         {% if products %}
             {% for prod in products %}
                 <div class="products_container">
-                    <h3>{{ prod.product_name }}</h3>
+                    <a href="{% url 'product_detailed' prod.id %}">{{ prod.product_name }}</a>
                     <p>{{ prod.product_vendor_code }}</p>
                     <p>{{ prod.product_category }}</p>
                     <p>{{ prod.product_sub_category }}</p>
