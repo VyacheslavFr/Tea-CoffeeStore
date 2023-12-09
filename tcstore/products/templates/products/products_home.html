@@ -5,7 +5,18 @@
 {% block content %}
     <div class="features">
         <h1>Товары</h1>
-        <p>текст</p>
-        <button class="btn btn-warning">На страницу о нас</button>
+
+        {% for prod in products %}
+            <div class="products_container">
+                <h3>{{ prod.product_name }}</h3>
+                <p>{{ prod.product_vendor_code }}</p>
+                <p>{{ prod.product_category }}</p>
+                <p>{{ prod.product_sub_category }}</p>
+                <p>{{ prod.product_package }}</p>
+                <p>{{ prod.product_net_weight }}</p>
+            </div>
+        {% endfor %}
+
+
     </div>
 {% endblock %}
