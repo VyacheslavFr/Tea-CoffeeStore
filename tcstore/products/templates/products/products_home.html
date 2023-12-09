@@ -1,21 +1,27 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %}Товары{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+
     <div class="features">
         <h1>Товары</h1>
-
-        {% for prod in products %}
-            <div class="products_container">
-                <h3>{{ prod.product_name }}</h3>
-                <p>{{ prod.product_vendor_code }}</p>
-                <p>{{ prod.product_category }}</p>
-                <p>{{ prod.product_sub_category }}</p>
-                <p>{{ prod.product_package }}</p>
-                <p>{{ prod.product_net_weight }}</p>
-            </div>
-        {% endfor %}
+        {% if products %}
+            {% for prod in products %}
+                <div class="products_container">
+                    <h3>{{ prod.product_name }}</h3>
+                    <p>{{ prod.product_vendor_code }}</p>
+                    <p>{{ prod.product_category }}</p>
+                    <p>{{ prod.product_sub_category }}</p>
+                    <p>{{ prod.product_package }}</p>
+                    <p>{{ prod.product_net_weight }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Нет товаров</p>
+        {% endif %}
 
 
     </div>

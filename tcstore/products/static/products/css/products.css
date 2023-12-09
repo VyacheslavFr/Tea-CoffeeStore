@@ -1,0 +1,8 @@
+.products_container {
+    float: left;
+    clear: both;
+    width: 400px;
+    margin: 20px 34%;
+    text-align: left;
+    font-size: 15px;
+}
