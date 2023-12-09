@@ -3,9 +3,11 @@
 
 {% block title %}Профиль{% endblock %}
 
-{% block content %}
+{% block head %}
     <link rel="stylesheet" href="{% static 'user/css/user.css' %}">
+{% endblock %}
 
+{% block content %}
     <div class="features">
         <h1>Профиль</h1>
         <p>Имя пользователя: {{ user.username }}</p>
