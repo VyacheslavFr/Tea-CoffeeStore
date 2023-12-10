@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
 
-from .forms import EditProfileForm, LoginForm
+from .forms import EditProfileForm, LoginForm, ChangePasswordForm
 
 
 def user_registration_view(request):
@@ -49,7 +50,7 @@ def user_profile_view(request):
 def user_edit_profile_view(request):
     user = get_object_or_404(User, id=request.user.id)
     if request.method == 'POST':
-        form = EditProfileForm(request.user, request.POST, instance=user)
+        form = EditProfileForm(request.POST, instance=user)
         if form.is_valid():
             cleaned_data = form.cleaned_data
             if cleaned_data['username']:
@@ -58,12 +59,10 @@ def user_edit_profile_view(request):
                 user.first_name = cleaned_data['first_name']
             if cleaned_data['last_name']:
                 user.last_name = cleaned_data['last_name']
-            if cleaned_data['old_password']:
-                user.old_password = cleaned_data['old_password']
             user.save()
             return redirect('user_profile')
     else:
-        form = EditProfileForm(request.user, instance=user)
+        form = EditProfileForm(instance=user)
     return render(request, 'user/user_profile.html', {'form': form})
 
 
@@ -74,14 +73,14 @@ def user_logout_view(request):
     return redirect('home')
 
 
-# @login_required
-# def user_change_password(request):
-#     if request.method == 'POST':
-#         form = EditProfileForm(request.user, request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             update_session_auth_hash(request, user)
-#             return redirect('user_profile')
-#     else:
-#         form = EditProfileForm(request.user)
-#     return render(request, 'user/user_profile.html', {'form': form})
+@login_required
+def user_change_password_view(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('user_profile')
+    else:
+        form = ChangePasswordForm(request.user)
+    return render(request, 'user/user_change_password.html', {'form': form})

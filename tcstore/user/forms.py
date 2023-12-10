@@ -24,6 +24,13 @@ class EditProfileForm(forms.ModelForm):
     last_name = forms.CharField(required=False)
     email = forms.CharField(required=False)
 
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+
+class ChangePasswordForm(forms.Form):
+
     error_messages = {
         "password_incorrect": _("Старый пароль введён неверно."),
         "password_mismatch": _("Пароли не совпадают"),
@@ -57,13 +64,14 @@ class EditProfileForm(forms.ModelForm):
         password_validation.validate_password(password2, self.user)
         return password2
 
+    def clean(self):
+        cleaned_data = super().clean()
+        self.clean_new_password2()
+        return cleaned_data
+
     def save(self, commit=True):
         password = self.cleaned_data["new_password"]
         self.user.set_password(password)
         if commit:
             self.user.save()
         return self.user
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'old_password', 'new_password', 'confirm_new_password']
