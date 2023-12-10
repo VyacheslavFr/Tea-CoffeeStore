@@ -54,15 +54,15 @@ class ChangePasswordForm(forms.Form):
         return old_password
 
     def clean_new_password2(self):
-        password1 = self.cleaned_data.get("new_password")
-        password2 = self.cleaned_data.get("confirm_new_password")
-        if password1 and password2 and password1 != password2:
+        new_password = self.cleaned_data.get("new_password")
+        confirm_new_password = self.cleaned_data.get("confirm_new_password")
+        if new_password and confirm_new_password and new_password != confirm_new_password:
             raise ValidationError(
                 self.error_messages["password_mismatch"],
                 code="password_mismatch",
             )
-        password_validation.validate_password(password2, self.user)
-        return password2
+        password_validation.validate_password(confirm_new_password, self.user)
+        return self.cleaned_data
 
     def clean(self):
         cleaned_data = super().clean()
