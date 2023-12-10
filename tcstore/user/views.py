@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import PasswordChangeForm
 
 from .forms import EditProfileForm, LoginForm
 
@@ -48,7 +49,7 @@ def user_profile_view(request):
 def user_edit_profile_view(request):
     user = get_object_or_404(User, id=request.user.id)
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=user)
+        form = EditProfileForm(request.user, request.POST, instance=user)
         if form.is_valid():
             cleaned_data = form.cleaned_data
             if cleaned_data['username']:
@@ -62,7 +63,7 @@ def user_edit_profile_view(request):
             user.save()
             return redirect('user_profile')
     else:
-        form = EditProfileForm(instance=user)
+        form = EditProfileForm(request.user, instance=user)
     return render(request, 'user/user_profile.html', {'form': form})
 
 
@@ -76,11 +77,11 @@ def user_logout_view(request):
 # @login_required
 # def user_change_password(request):
 #     if request.method == 'POST':
-#         form = ChangePasswordForm(request.user, request.POST)
+#         form = EditProfileForm(request.user, request.POST)
 #         if form.is_valid():
 #             user = form.save()
 #             update_session_auth_hash(request, user)
 #             return redirect('user_profile')
 #     else:
-#         form = ChangePasswordForm(request.user)
+#         form = EditProfileForm(request.user)
 #     return render(request, 'user/user_profile.html', {'form': form})
