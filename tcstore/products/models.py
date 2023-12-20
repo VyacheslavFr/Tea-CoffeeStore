@@ -10,7 +10,8 @@ class Products(models.Model):
     product_net_weight = models.CharField('Вес нетто, г.', max_length=20)
     product_full_category = models.CharField('Развёрнутая категория', max_length=40)
     product_description = models.TextField('Описание')
-    product_price = models.CharField('Цена, руб.', max_length=10, blank=True)
+    product_price = models.DecimalField('Цена, руб.', max_digits=10, decimal_places=2, default=True, null=True, blank=True)
+    product_available = models.BooleanField('Наличие', default=True)
 
     def __str__(self):
         return self.product_name
