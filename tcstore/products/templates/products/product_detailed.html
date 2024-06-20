@@ -18,6 +18,13 @@
             <p>{{ product.product_net_weight }}</p>
             <p>{{ product.product_full_category }}</p>
             <p>{{ product.product_price }}</p>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                        {{ cart_product_form }}
+                        {% csrf_token %}
+                        <input type="submit" value="В корзину">
+                    </form>
+                {% endif %}
             <p>{{ product.product_description }}</p>
         </div>
     </div>

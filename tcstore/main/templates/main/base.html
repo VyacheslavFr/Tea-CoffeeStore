@@ -19,6 +19,18 @@
     <a href={% url 'user_registration' %}>Регистрация на сайте</a>
     <a href={% url 'user_login' %}>Авторизация</a>
 {% endif %}
+<div class="cart">
+    {% with total_items=cart|length %}
+    {% if cart|length > 0 %}
+    В корзине:
+    <a href="{% url 'cart:cart_detail' %}">
+        {{ total_items }} шт. , руб.{{ cart.get_total_price }}
+    </a>
+    {% else %}
+    Корзина пустая
+    {% endif %}
+    {% endwith %}
+</div>
 
 <body>
     <aside>
